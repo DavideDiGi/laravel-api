@@ -17,6 +17,26 @@ class Project extends Model
         'type_id'
     ];
 
+    protected $hidden = ['cover_pic'];
+
+    /**
+     * The accessors to append to the model's array form.
+     * 
+     * @var array
+     */
+    protected $appends = ['full_img_path'];
+
+    public function getFullImgPathAttribute()
+    {
+        $fullPath = null;
+
+        if ($this->cover_pic) {
+            $fullPath = asset('storage/' . $this->cover_pic);
+        }
+
+        return $fullPath;
+    }
+
     public function type()
     {
         return $this->belongsTo(Type::class);

@@ -54,12 +54,19 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $project = Project::where('slug', $slug)->with('type', 'technologies')->first();
+
+        return response()->json([
+            'success' => true,
+            'code' => 200,
+            'message' => 'Ok',
+            'project' => $project
+        ]);
     }
 
     /**
